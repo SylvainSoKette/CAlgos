@@ -2,50 +2,89 @@
 #include <stdlib.h>
 #include <time.h>
 
-int* generateRandomIntArray(int elements, int max_value)
+typedef struct
+{
+	int size;
+	int* data;
+} t_intArray;
+
+int* generateRandomIntArray(int size, int max_value)
 {
 	int r;
-	int* array = malloc(sizeof(int) * elements);
+	int* data;
 
+	data = malloc(sizeof(int) * size);
 	srand(time(NULL));
 
-	for (int i = 0; i < elements; i++)
+	for (int i = 0; i < size; i++)
 	{
-		array[i] = rand() % max_value;
+		data[i] = rand() % max_value;
 	}
 
-	return array;
+	return data;
 }
 
-void displayIntArray(int* array, int const array_size)
+void displayIntArray(t_intArray array)
 {
-	for (int i = 0; i < array_size; i++)
+	int i;
+
+	for (i = 0; i < array.size; i++)
 	{
 		if (i == 0)
 		{
-			printf("[%d, ", array[i]);
+			printf("[%d, ", array.data[i]);
 		}
-		else if (i == array_size -1)
+		else if (i == array.size -1)
 		{
-			printf("%d]", array[i]);
+			printf("%d]", array.data[i]);
 		}
 		else
 		{
-			printf("%d, ", array[i]);
+			printf("%d, ", array.data[i]);
 		}
+	}
+}
+
+void bubbleSortIntArray(t_intArray array)
+{
+
+}
+
+enum SORT_TYPE
+{
+	SORT_BUBBLE,
+	SORT_SELECTION,
+	SORT_INSERT
+};
+
+void sortIntArray(t_intArray array, enum SORT_TYPE type)
+{
+	switch (type)
+	{
+		case SORT_BUBBLE:
+			bubbleSortIntArray(array);
+			break;
+		case SORT_SELECTION:
+			break;
+		case SORT_INSERT:
+			break;
+		default:
+			break;
 	}
 }
 
 int main(int argc, char* argv)
 {
-	int numbers_to_generate;
-	int* random_numbers;
+	t_intArray array;
 
-	numbers_to_generate = 255;
-	random_numbers = generateRandomIntArray(numbers_to_generate, 256);
-	displayIntArray(random_numbers, numbers_to_generate);
+	array.size = 256;
+	array.data = generateRandomIntArray(array.size, 256);
 
-	free(random_numbers);
+	displayIntArray(array);
+	sortIntArray(array, SORT_BUBBLE);
+	displayIntArray(array);
+
+	free(array.data);
 
 	return 0;
 }
