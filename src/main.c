@@ -2,30 +2,30 @@
 #include <stdlib.h>
 #include <time.h>
 
-int* generateRandomIntArray(int n, int max)
+int* generateRandomIntArray(int elements, int max_value)
 {
 	int r;
-	int* array = malloc(sizeof(int) * n);
+	int* array = malloc(sizeof(int) * elements);
 
 	srand(time(NULL));
 
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < elements; i++)
 	{
-		array[i] = rand() % max;
+		array[i] = rand() % max_value;
 	}
 
 	return array;
 }
 
-void displayIntArray(int* array, int const arraySize)
+void displayIntArray(int* array, int const array_size)
 {
-	for (int i = 0; i < arraySize; i++)
+	for (int i = 0; i < array_size; i++)
 	{
 		if (i == 0)
 		{
 			printf("[%d, ", array[i]);
 		}
-		else if (i == arraySize -1)
+		else if (i == array_size -1)
 		{
 			printf("%d]", array[i]);
 		}
@@ -38,14 +38,14 @@ void displayIntArray(int* array, int const arraySize)
 
 int main(int argc, char* argv)
 {
-	int numbersToGenerate;
-	int* randomNumbers;
+	int numbers_to_generate;
+	int* random_numbers;
 
-	numbersToGenerate = 255;
-	randomNumbers = generateRandomIntArray(numbersToGenerate, 256);
-	displayIntArray(randomNumbers, numbersToGenerate);
+	numbers_to_generate = 255;
+	random_numbers = generateRandomIntArray(numbers_to_generate, 256);
+	displayIntArray(random_numbers, numbers_to_generate);
 
-	free(randomNumbers);
+	free(random_numbers);
 
 	return 0;
 }
