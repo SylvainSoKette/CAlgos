@@ -6,63 +6,64 @@ typedef struct
 {
 	int size;
 	int* data;
-} t_intArray;
+} intArray_t;
 
-int* generateRandomIntArray(int size, int max_value)
+intArray_t* newRandomIntArray(int size, int max_value)
 {
-	int r;
-	int* data;
+	intArray_t* array_p;
 
-	data = malloc(sizeof(int) * size);
-	srand(time(NULL));
-
-	for (int i = 0; i < size; i++)
+	array_p->size = size;
+	if ((array_p->data = malloc(sizeof(int) * size)) != NULL)
 	{
-		data[i] = rand() % max_value;
+		srand(time(NULL));
+		for (int i = 0; i < size; i++)
+		{
+			array_p->data[i] = rand() % max_value;
+		}
 	}
 
-	return data;
+	return array_p;
 }
 
-void displayIntArray(t_intArray array)
+void displayIntArray(intArray_t* array_p)
 {
 	int i;
 
-	for (i = 0; i < array.size; i++)
+	for (i = 0; i < array_p->size; i++)
 	{
 		if (i == 0)
 		{
-			printf("[%d, ", array.data[i]);
+			printf("[%d, ", array_p->data[i]);
 		}
-		else if (i == array.size -1)
+		else if (i == array_p->size -1)
 		{
-			printf("%d]", array.data[i]);
+			printf("%d]\n", array_p->data[i]);
 		}
 		else
 		{
-			printf("%d, ", array.data[i]);
+			printf("%d, ", array_p->data[i]);
 		}
 	}
 }
 
-void bubbleSortIntArray(t_intArray array)
+void bubbleSortIntArray(intArray_t* array_p)
 {
 
 }
 
-enum SORT_TYPE
+typedef enum
 {
 	SORT_BUBBLE,
 	SORT_SELECTION,
 	SORT_INSERT
-};
+} SORT_TYPE;
 
-void sortIntArray(t_intArray array, enum SORT_TYPE type)
+void sortIntArray(intArray_t* array_p, SORT_TYPE type)
 {
 	switch (type)
 	{
 		case SORT_BUBBLE:
-			bubbleSortIntArray(array);
+			bubbleSortIntArray(array_p);
 			break;
 		case SORT_SELECTION:
 			break;
@@ -75,16 +76,11 @@ void sortIntArray(t_intArray array, enum SORT_TYPE type)
 
 int main(int argc, char* argv)
 {
-	t_intArray array;
+	intArray_t* array_p;
 
-	array.size = 256;
-	array.data = generateRandomIntArray(array.size, 256);
+	array_p = newRandomIntArray(32, 256);
 
-	displayIntArray(array);
-	sortIntArray(array, SORT_BUBBLE);
-	displayIntArray(array);
-
-	free(array.data);
+	displayIntArray(array_p);
 
 	return 0;
 }
