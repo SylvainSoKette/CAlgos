@@ -1,11 +1,12 @@
-#include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 typedef struct
 {
 	int size;
-	int* data;
+	int* values;
 } intArray_t;
 
 intArray_t* newRandomIntArray(int size, int max_value)
@@ -13,12 +14,12 @@ intArray_t* newRandomIntArray(int size, int max_value)
 	intArray_t* array_p;
 
 	array_p->size = size;
-	if ((array_p->data = malloc(sizeof(int) * size)) != NULL)
+	if ((array_p->values = malloc(sizeof(int) * size)) != NULL)
 	{
 		srand(time(NULL));
 		for (int i = 0; i < size; i++)
 		{
-			array_p->data[i] = rand() % max_value;
+			array_p->values[i] = rand() % max_value;
 		}
 	}
 
@@ -33,22 +34,40 @@ void displayIntArray(intArray_t* array_p)
 	{
 		if (i == 0)
 		{
-			printf("[%d, ", array_p->data[i]);
+			printf("[%d, ", array_p->values[i]);
 		}
 		else if (i == array_p->size -1)
 		{
-			printf("%d]\n", array_p->data[i]);
+			printf("%d]\n", array_p->values[i]);
 		}
 		else
 		{
-			printf("%d, ", array_p->data[i]);
+			printf("%d, ", array_p->values[i]);
 		}
 	}
 }
 
 void bubbleSortIntArray(intArray_t* array_p)
 {
+	int i;
+	int j;
+	int temp;
+	bool did_swap;
 
+	do
+	{
+		did_swap = false;
+		for (i = 1; i < array_p->size; i++)
+		{
+			if (array_p->values[i - 1] > array_p->values[i])
+			{
+				temp = array_p->values[i];
+				array_p->values[i] = array_p->values[i - 1];
+				array_p->values[i - 1] = temp;
+				did_swap = true;
+			}
+		}
+	} while (did_swap);
 }
 
 typedef enum
@@ -78,8 +97,10 @@ int main(int argc, char* argv)
 {
 	intArray_t* array_p;
 
-	array_p = newRandomIntArray(32, 256);
+	array_p = newRandomIntArray(16, 256);
 
+	displayIntArray(array_p);
+	bubbleSortIntArray(array_p);
 	displayIntArray(array_p);
 
 	return 0;
