@@ -97,11 +97,13 @@ int main(int argc, char* argv)
 {
 	intArray_t* array_p;
 
-	array_p = newRandomIntArray(16, 256);
+	array_p = newRandomIntArray(32, 256);
 
 	displayIntArray(array_p);
 	sortIntArray(array_p, SORT_BUBBLE);
 	displayIntArray(array_p);
+
+	free(array_p);
 
 	return 0;
 }
