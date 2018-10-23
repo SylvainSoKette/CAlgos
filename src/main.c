@@ -100,7 +100,7 @@ int main(int argc, char* argv)
 	array_p = newRandomIntArray(16, 256);
 
 	displayIntArray(array_p);
-	bubbleSortIntArray(array_p);
+	sortIntArray(array_p, SORT_BUBBLE);
 	displayIntArray(array_p);
 
 	return 0;
