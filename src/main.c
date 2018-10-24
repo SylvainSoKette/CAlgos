@@ -50,7 +50,6 @@ void displayIntArray(intArray_t* array_p)
 void bubbleSortIntArray(intArray_t* array_p)
 {
 	int i;
-	int j;
 	int temp;
 	bool did_swap;
 
