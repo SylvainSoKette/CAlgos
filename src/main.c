@@ -9,6 +9,22 @@ typedef struct
 	int* values;
 } intArray_t;
 
+intArray_t* newIntArray(int size)
+{
+	intArray_t* array_p;
+
+	array_p->size = size;
+	if ((array_p->values = malloc(sizeof(int) * size)) != NULL)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			array_p->values[i] = 0;
+		}
+	}
+
+	return array_p;
+}
+
 intArray_t* newRandomIntArray(int size, int max_value)
 {
 	intArray_t* array_p;
@@ -69,6 +85,54 @@ void bubbleSortIntArray(intArray_t* array_p)
 	} while (did_swap);
 }
 
+/*
+void insertSortInArray(intArray_t* array_p)
+{
+	int i;
+	int j;
+	int temp;
+
+	i = 1;
+	while (i < array_p->size)
+	{
+		j = i;
+		while (j > 0 && array_p->values[j-1] > array_p->values[j])
+		{
+			temp = array_p->values[j-1];
+			array_p->values[j-1] = array_p->values[j];
+			array_p->values[j] = temp;
+			j--;
+		}
+		i++;
+	}
+}
+*/
+
+/*
+ * Slightly optimized version of the insertion sort algorithm
+ */
+void insertSortInArray(intArray_t* array_p)
+{
+	int i;
+	int j;
+	int temp;
+
+	i = 1;
+	while (i < array_p->size)
+	{
+		temp = array_p->values[i];
+		j = i - 1;
+		while (j >= 0 && array_p->values[j] > temp)
+		{
+			array_p->values[j+1] = array_p->values[j];
+			j--;
+		}
+		array_p->values[j+1] = temp;
+		i++;
+	}
+}
+
+
 typedef enum
 {
 	SORT_BUBBLE,
@@ -86,6 +150,7 @@ void sortIntArray(intArray_t* array_p, SORT_TYPE type)
 		case SORT_SELECTION:
 			break;
 		case SORT_INSERT:
+			insertSortInArray(array_p);
 			break;
 		default:
 			break;
@@ -99,7 +164,7 @@ int main(int argc, char* argv)
 	array_p = newRandomIntArray(32, 256);
 
 	displayIntArray(array_p);
-	sortIntArray(array_p, SORT_BUBBLE);
+	sortIntArray(array_p, SORT_INSERT);
 	displayIntArray(array_p);
 
 	free(array_p);
