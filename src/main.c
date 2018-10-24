@@ -132,15 +132,14 @@ void insertSortInArray(intArray_t* array_p)
 	}
 }
 
-
 typedef enum
 {
 	SORT_BUBBLE,
 	SORT_SELECTION,
 	SORT_INSERT
-} SORT_TYPE;
+} SortType;
 
-void sortIntArray(intArray_t* array_p, SORT_TYPE type)
+void sortIntArray(intArray_t* array_p, SortType type)
 {
 	switch (type)
 	{
