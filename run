@@ -1,1 +1,3 @@
-./build && bin/program.exe
+#! /bin/bash
+
+./build && bin/program

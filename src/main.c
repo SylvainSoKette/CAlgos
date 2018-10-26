@@ -13,8 +13,9 @@ intArray_t* newIntArray(int size)
 {
 	intArray_t* array_p;
 
+	array_p = malloc(sizeof(intArray_t));
 	array_p->size = size;
-	if ((array_p->values = malloc(sizeof(int) * size)) != NULL)
+	if ((array_p->values = malloc(size * sizeof(array_p->values))) != NULL)
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -29,8 +30,9 @@ intArray_t* newRandomIntArray(int size, int max_value)
 {
 	intArray_t* array_p;
 
+	array_p = array_p = malloc(sizeof(intArray_t));
 	array_p->size = size;
-	if ((array_p->values = malloc(sizeof(int) * size)) != NULL)
+	if ((array_p->values = malloc(size * sizeof(array_p->values))) != NULL)
 	{
 		srand(time(NULL));
 		for (int i = 0; i < size; i++)
