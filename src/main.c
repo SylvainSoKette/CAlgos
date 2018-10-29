@@ -88,7 +88,7 @@ void bubbleSortIntArray(intArray_t* array_p)
 }
 
 /*
-void insertSortInArray(intArray_t* array_p)
+void insertSortIntArray(intArray_t* array_p)
 {
 	int i;
 	int j;
@@ -113,7 +113,7 @@ void insertSortInArray(intArray_t* array_p)
 /*
  * Slightly optimized version of the insertion sort algorithm
  */
-void insertSortInArray(intArray_t* array_p)
+void insertSortIntArray(intArray_t* array_p)
 {
 	int i;
 	int j;
@@ -151,7 +151,7 @@ void sortIntArray(intArray_t* array_p, SortType type)
 		case SORT_SELECTION:
 			break;
 		case SORT_INSERT:
-			insertSortInArray(array_p);
+			insertSortIntArray(array_p);
 			break;
 		default:
 			break;
