@@ -87,28 +87,26 @@ void bubbleSortIntArray(intArray_t* array_p)
 	} while (did_swap);
 }
 
-/*
-void insertSortIntArray(intArray_t* array_p)
-{
-	int i;
-	int j;
-	int temp;
+// void insertSortIntArray(intArray_t* array_p)
+// {
+// 	int i;
+// 	int j;
+// 	int temp;
 
-	i = 1;
-	while (i < array_p->size)
-	{
-		j = i;
-		while (j > 0 && array_p->values[j-1] > array_p->values[j])
-		{
-			temp = array_p->values[j-1];
-			array_p->values[j-1] = array_p->values[j];
-			array_p->values[j] = temp;
-			j--;
-		}
-		i++;
-	}
-}
-*/
+// 	i = 1;
+// 	while (i < array_p->size)
+// 	{
+// 		j = i;
+// 		while (j > 0 && array_p->values[j-1] > array_p->values[j])
+// 		{
+// 			temp = array_p->values[j-1];
+// 			array_p->values[j-1] = array_p->values[j];
+// 			array_p->values[j] = temp;
+// 			j--;
+// 		}
+// 		i++;
+// 	}
+// }
 
 /*
  * Slightly optimized version of the insertion sort algorithm
@@ -134,11 +132,38 @@ void insertSortIntArray(intArray_t* array_p)
 	}
 }
 
+void selectionSortIntArray(intArray_t* array_p)
+{
+	int i;
+	int j;
+	int temp;
+
+	for (j = 0; j < array_p->size - 1; j++)
+	{
+		int index_min = j;
+
+		for (i = j + 1; i < array_p->size; i++)
+		{
+			if (array_p->values[i] < array_p->values[index_min])
+			{
+				index_min = i;
+			}
+		}
+
+		if (index_min != j)
+		{
+			temp = array_p->values[j];
+			array_p->values[j] = array_p->values[index_min];
+			array_p->values[index_min] = temp;
+		}
+	}
+}
+
 typedef enum
 {
 	SORT_BUBBLE,
-	SORT_SELECTION,
-	SORT_INSERT
+	SORT_INSERT,
+	SORT_SELECTION
 } SortType;
 
 void sortIntArray(intArray_t* array_p, SortType type)
@@ -148,10 +173,11 @@ void sortIntArray(intArray_t* array_p, SortType type)
 		case SORT_BUBBLE:
 			bubbleSortIntArray(array_p);
 			break;
-		case SORT_SELECTION:
-			break;
 		case SORT_INSERT:
 			insertSortIntArray(array_p);
+			break;
+		case SORT_SELECTION:
+			selectionSortIntArray(array_p);
 			break;
 		default:
 			break;
@@ -165,7 +191,7 @@ int main(int argc, char* argv)
 	array_p = newRandomIntArray(32, 256);
 
 	displayIntArray(array_p);
-	sortIntArray(array_p, SORT_INSERT);
+	sortIntArray(array_p, SORT_SELECTION);
 	displayIntArray(array_p);
 
 	free(array_p);
