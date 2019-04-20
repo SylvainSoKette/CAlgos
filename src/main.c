@@ -111,24 +111,54 @@ void bubbleSortIntArray(intArray_t* array_p)
 /*
  * Slightly optimized version of the insertion sort algorithm
  */
+// void insertSortIntArray(intArray_t* array_p)
+// {
+// 	int i;
+// 	int j;
+// 	int temp;
+
+// 	i = 1;
+// 	while (i < array_p->size)
+// 	{
+// 		temp = array_p->values[i];
+// 		j = i - 1;
+// 		while (j >= 0 && array_p->values[j] > temp)
+// 		{
+// 			array_p->values[j+1] = array_p->values[j];
+// 			j--;
+// 		}
+// 		array_p->values[j+1] = temp;
+// 		i++;
+// 	}
+// }
+
 void insertSortIntArray(intArray_t* array_p)
 {
 	int i;
 	int j;
-	int temp;
+	int smallest_index;
+	intArray_t* new_array_p;
 
-	i = 1;
-	while (i < array_p->size)
+	new_array_p = newIntArray(array_p->size);
+
+	for (i = 0; i < new_array_p->size; i++)
 	{
-		temp = array_p->values[i];
-		j = i - 1;
-		while (j >= 0 && array_p->values[j] > temp)
+		smallest_index = 0;
+		for (j = 1; j < array_p->size; j++)
 		{
-			array_p->values[j+1] = array_p->values[j];
-			j--;
+			if (array_p->values[j] != -1 &&
+				array_p->values[smallest_index] > array_p->values[j])
+			{
+				smallest_index = j;
+			}
 		}
-		array_p->values[j+1] = temp;
-		i++;
+		new_array_p->values[i] = array_p->values[smallest_index];
+		array_p->values[smallest_index] = -1;
+	}
+
+	for (i = 0; i < array_p->size; i++)
+	{
+		array_p->values[i] = new_array_p->values[i];
 	}
 }
 
@@ -191,7 +221,7 @@ int main(int argc, char* argv)
 	array_p = newRandomIntArray(32, 256);
 
 	displayIntArray(array_p);
-	sortIntArray(array_p, SORT_SELECTION);
+	sortIntArray(array_p, SORT_INSERT);
 	displayIntArray(array_p);
 
 	free(array_p);
